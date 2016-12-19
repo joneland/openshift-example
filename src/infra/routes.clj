@@ -3,14 +3,18 @@
             [compojure.core :refer :all]
             [compojure.handler :refer :all]
             [compojure.route :as route]
-            [ring.util.response :refer [response]]))
+            [ring.util.response :refer [response]]
+            [ring.middleware.json :refer :all]))
 
 (defroutes app-routes
-  (->
-    (route/not-found
-      (response {:message "Page not found!"}))))
+  (GET "/" []
+    (response {:message "Hello!"}))
+  (route/not-found
+    (response {:message "Page not found!"})))
 
 (def app
   (->
     app-routes
-    compojure.handler/api))
+    compojure.handler/api
+    wrap-json-response
+    wrap-json-body))
