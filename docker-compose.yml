@@ -1,0 +1,9 @@
+version: '2'
+services:
+  openshift-sample:
+    container_name: openshift-sample
+    environment:
+      SERVICE_NAME: openshift-sample
+    ports:
+    - "4000:4000"
+    build: .
